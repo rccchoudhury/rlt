@@ -1,0 +1,3 @@
+[2024-11-10 21:09:27,159][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2024-11-10 21:09:27,164][src.utils.utils][INFO] - [rank: 0] Printing config tree with Rich! <cfg.extras.print_config=True>
+[2024-11-10 21:09:27,164][src.utils.rich_utils][WARNING] - [rank: 0] Field 'logger' not found in config. Skipping 'logger' config printing...

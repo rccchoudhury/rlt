@@ -1,0 +1,57 @@
+[2024-11-10 21:11:55,145][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2024-11-10 21:11:55,150][src.utils.utils][INFO] - [rank: 0] Printing config tree with Rich! <cfg.extras.print_config=True>
+[2024-11-10 21:11:55,150][src.utils.rich_utils][WARNING] - [rank: 0] Field 'logger' not found in config. Skipping 'logger' config printing...
+[2024-11-10 21:11:55,191][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.kinetics_datamodule.KineticsDataModule>
+[2024-11-10 21:11:56,265][__main__][INFO] - [rank: 0] Instantiating model <src.models.vit_mae.VITModule>
+[2024-11-10 21:11:56,934][src.utils.utils][ERROR] - [rank: 0] 
+Traceback (most recent call last):
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/utils.py", line 644, in _locate
+    obj = getattr(obj, part)
+AttributeError: module 'src.models' has no attribute 'vit_mae'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/utils.py", line 650, in _locate
+    obj = import_module(mod)
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/rchoudhu/research/compressvit/pregrouping-release-debug/src/models/vit_mae.py", line 18, in <module>
+    from src.models.tokenizer import Tokenizer
+  File "/home/rchoudhu/research/compressvit/pregrouping-release-debug/src/models/tokenizer.py", line 9, in <module>
+    from pytorchvideo.transforms import RandAugment
+ModuleNotFoundError: No module named 'pytorchvideo'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 134, in _resolve_target
+    target = _locate(target)
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/utils.py", line 653, in _locate
+    raise ImportError(
+ImportError: Error loading 'src.models.vit_mae.VITModule':
+ModuleNotFoundError("No module named 'pytorchvideo'")
+Are you sure that 'vit_mae' is importable from module 'src.models'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/rchoudhu/research/compressvit/pregrouping-release-debug/src/utils/utils.py", line 72, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/home/rchoudhu/research/compressvit/pregrouping-release-debug/src/train.py", line 63, in train
+    model: LightningModule = hydra.utils.instantiate(cfg.model)
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 333, in instantiate_node
+    _target_ = _resolve_target(node.get(_Keys.TARGET), full_key)
+  File "/usr/local/anaconda3/envs/rlt/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 139, in _resolve_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error locating target 'src.models.vit_mae.VITModule', set env var HYDRA_FULL_ERROR=1 to see chained exception.
+full_key: model
+[2024-11-10 21:11:56,936][src.utils.utils][INFO] - [rank: 0] Output dir: /home/rchoudhu/research/compressvit/pregrouping-release-debug/logs/vitb_singlecrop/runs/2024-11-10_21-11-55

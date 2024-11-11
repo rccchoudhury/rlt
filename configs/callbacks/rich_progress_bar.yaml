@@ -1,0 +1,4 @@
+# https://lightning.ai/docs/pytorch/latest/api/pytorch_lightning.callbacks.RichProgressBar.html
+
+rich_progress_bar:
+  _target_: pytorch_lightning.callbacks.RichProgressBar

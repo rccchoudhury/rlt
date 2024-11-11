@@ -1,0 +1,7 @@
+_target_: src.data.ssv2_datamodule.SSV2DataModule
+#data_dir: ${paths.data_dir}
+batch_size: 8 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
+num_workers: 8
+pin_memory: True
+train_anno_path: ${SSV2_TRAIN_ANNO}
+val_anno_path: ${SSV2_VAL_ANNO}

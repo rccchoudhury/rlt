@@ -1,0 +1,92 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=val_vit_mae.yaml
+
+defaults:
+  - override /data: kinetics
+  - override /model: vit_mae
+  - override /callbacks: default
+  - override /trainer: default
+  #- override /logger: wandb
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["kinetics400"]
+
+seed: 42
+
+task_name: "vitb_finetune_posenc_kinetics"
+
+train: True
+
+trainer:
+  precision: 16
+  devices: 4
+  accelerator: "gpu"
+  min_epochs: 0
+  max_epochs: 100
+  default_root_dir: ${paths.output_dir}
+  plugins: 
+    _target_: pytorch_lightning.plugins.environments.LightningEnvironment
+
+
+model:
+  compile: true
+  finetune: "../../checkpoints/pretrain_vitb.pth" # "./checkpoints/videomaev2_pretrain_vitb.pth"
+  model:
+    use_flash_attn: true
+    use_length_embed: false # fix true
+  scheduler_cfg: 
+    _target_: src.models.optim_utils.CosineSchedulerConfig
+    # Partial bc batch size depends on other stuff.
+    warmup_epochs: 5
+    total_epochs: 100
+    lr: 1.5e-3
+    end_lr: 1e-6
+    start_lr: 1e-6
+  optimizer: 
+    lr: 1
+    _target_: torch.optim.AdamW
+    _partial_: true
+    betas: [0.9, 0.999]
+    weight_decay: 0.05
+  tokenizer_cfg:
+    _target_: src.models.tokenizer_utils.TokenizerConfig
+    drop_policy: rlt
+    drop_param: 0.1
+    encode_length: False
+    mixup_config:
+      _target_: src.models.tokenizer_utils.MixupConfig
+      mixup_alpha: 0.0
+      cutmix_alpha: 1.0
+      cutmix_minmax: None
+      prob: 1.0
+      switch_prob: 0.5
+      mode: batch
+      label_smoothing: 0.1
+      num_classes: 400
+    re_config:
+      _target_: src.models.tokenizer_utils.RandomErasingConfig
+      probability: 0.25
+      mode: const
+      device: cuda
+      min_count: 1
+    # rand_aug_config:
+    #   _target_: src.models.tokenizer_utils.RandAugmentConfig
+    #   num_layers: 4
+    #   magnitude: 7
+
+  
+data:
+  batch_size: 192
+  num_workers: 12
+  
+# logger: 
+#   wandb:
+#     _target_: pytorch_lightning.loggers.wandb.WandbLogger
+#     name: ${task_name}
+#     project: "pregrouping"
+#     tags: ${task_name}
+#     group: "baselines"

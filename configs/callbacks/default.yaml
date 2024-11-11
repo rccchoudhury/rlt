@@ -1,0 +1,28 @@
+defaults:
+  - model_checkpoint
+  #- early_stopping
+  - model_summary
+  #- lr_monitor
+  - rich_progress_bar
+  - _self_
+
+# lr_monitor:
+#   _target_: pytorch_lightning.callbacks.LearningRateMonitor
+#   logging_interval: "step"
+
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  filename: "epoch_{epoch:03d}"
+  monitor: "val/top1_acc"
+  mode: "max"
+  save_last: True
+  auto_insert_metric_name: False
+
+# early_stopping:
+#   monitor: "val/acc"
+#   patience: 100
+#   mode: "max"
+
+model_summary:
+  max_depth: -1

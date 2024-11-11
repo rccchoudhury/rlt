@@ -1,0 +1,34 @@
+name: rlt
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - xformers
+  - defaults
+dependencies:
+  - python=3.10
+  - pip=23.3.1
+  - pytorch
+  - pytorch-cuda=11.8
+  - ipykernel
+  - matplotlib
+  - torchaudio
+  - torchvision
+  - xformers=0.0.25
+  - conda-pack
+  - pip:
+    - einops==0.7.0
+    - numpy==1.26.4
+    - omegaconf
+    - opencv-python
+    - hydra-core==1.3.2
+    - hydra-colorlog==1.2.0
+    - hydra-optuna-sweeper==1.2.0
+    - ipdb
+    - pytorch-lightning==2.2.0
+    - pytorchvideo
+    - rich
+    - rootutils
+    - timm
+    - tqdm
+    - wandb

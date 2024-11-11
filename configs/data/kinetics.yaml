@@ -1,0 +1,7 @@
+_target_: src.data.kinetics_datamodule.KineticsDataModule
+#data_dir: ${paths.data_dir}
+batch_size: 8 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
+num_workers: 8
+pin_memory: True
+train_metadata_path: ${KINETICS_TRAIN_METADATA}
+val_metadata_path: ${KINETICS_VAL_METADATA}

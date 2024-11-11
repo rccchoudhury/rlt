@@ -1,0 +1,31 @@
+_target_: src.models.vit_mae.VITModule
+
+model:
+  _target_: src.models.tome_helpers.VisionTransformerToMe
+  img_size: 224
+  patch_size: 16
+  in_channels: 3
+  num_classes: 400
+  embed_dims: 768
+  depth: 12
+  num_heads: 12
+  mlp_ratio: 4.
+  qkv_bias: True
+  fc_drop_rate: 0.
+  drop_rate: 0.
+  attn_drop_rate: 0.
+  drop_path_rate: 0.1
+  # Specify layer norm..
+  #norm_layer: nn.Module = nn.LayerNorm,
+  init_values: 0.
+  use_learnable_pos_emb: False
+  init_scale: 0.001
+  num_frames: 16
+  tubelet_size: 2
+  channels_last: False
+  use_flash_attn: False
+  use_mean_pooling: True
+  r: 65
+
+# compile model for faster training with pytorch 2.0
+compile: false

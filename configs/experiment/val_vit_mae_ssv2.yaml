@@ -1,0 +1,50 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=val_vit_mae.yaml
+
+defaults:
+  - override /data: ssv2
+  - override /model: vit_mae
+  - override /callbacks: default
+  - override /trainer: default
+  #- override /logger: wandb
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["ssv2", "vit_mae_val_singlecrop"]
+
+seed: 42
+
+task_name: "vitb_singlecrop"
+
+trainer:
+  precision: 16
+  devices: 4
+  accelerator: "gpu"
+  min_epochs: 10
+  max_epochs: 10
+  gradient_clip_val: 0.5
+
+model:
+  compile: true
+  pretrain: "/home/sihan/pregrouping/checkpoints/ssv2_videomae_B_finetuning.pth" # "/home/guanglei/pregrouping/checkpoints/vit_b_videomae_ssv2_2400_ft.pth"
+  tokenizer_cfg:
+    _target_: src.models.tokenizer_utils.TokenizerConfig
+    drop_policy: none
+    drop_param: 0.1
+    encode_length: False
+  model:
+    use_flash_attn: true
+    num_classes: 174
+  
+data:
+  batch_size: 24
+  num_workers: 72
+
+#logger: 
+  # wandb:
+  #   project: "pregrouping"
+  #   tags: ${task_name}
+  #   group: "baselines"

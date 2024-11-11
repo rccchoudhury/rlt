@@ -1,0 +1,49 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=val_vit_mae.yaml
+
+defaults:
+  - override /data: kinetics
+  - override /model: vit_mae
+  - override /callbacks: default
+  - override /trainer: default
+  # - override /logger: wandb
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["kinetics", "vit_mae_val_singlecrop"]
+
+seed: 42
+
+task_name: "vitb_singlecrop"
+
+trainer:
+  precision: 16
+  devices: 6
+  accelerator: "gpu"
+  min_epochs: 10
+  max_epochs: 10
+  gradient_clip_val: 0.5
+
+model:
+  compile: true
+  pretrain:  "../../checkpoints/vit_mae.pth
+  tokenizer_cfg:
+    _target_: src.models.tokenizer_utils.TokenizerConfig
+    drop_policy: none
+    drop_param: 0.1
+    encode_length: False
+  model:
+    use_flash_attn: True
+
+data:
+  batch_size: 24
+  num_workers: 12
+  
+# logger: 
+#   wandb:
+#     project: "pregrouping"
+#     tags: ${task_name}
+#     group: "baselines"

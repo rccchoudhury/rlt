@@ -1,0 +1,29 @@
+_target_: src.models.vit_mae.VITModule
+
+model:
+  _target_: src.models.vit_helpers.VisionTransformer
+  img_size: 224
+  patch_size: 16
+  in_channels: 3
+  num_classes: 400
+  embed_dims: 1024
+  depth: 24
+  num_heads: 16
+  mlp_ratio: 4.
+  qkv_bias: True
+  #qk_scale: Optional[float] = None
+  fc_drop_rate: 0.
+  drop_rate: 0.
+  attn_drop_rate: 0.
+  drop_path_rate: 0.1
+  init_values: 0.
+  use_learnable_pos_emb: False
+  init_scale: 0.001
+  num_frames: 16
+  tubelet_size: 2
+  channels_last: False
+  use_flash_attn: True
+  use_mean_pooling: True
+
+# compile model for faster training with pytorch 2.0
+compile: false
