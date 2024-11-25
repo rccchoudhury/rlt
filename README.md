@@ -2,7 +2,7 @@
 
 Official code for ["Don't Look Twice: Faster Video Transformers with Run-Length Tokenization"](https://arxiv.org/abs/2411.05222) at NeurIPS 2024 (spotlight).
 
-[Rohan Choudhury](https://rccchoudhury.github.io/), Guanglei Zhu, Sihan Liu, [Koichiro Niinuma](https://www.cs.toronto.edu/~niinuma/), [Kris Kitani](https://www.cs.cmu.edu/~kkitani/), [László Jeni](https://www.laszlojeni.com)  
+[Rohan Choudhury](https://rccchoudhury.github.io/), Guanglei Zhu, Sihan Liu, Koichiro Niinuma, [Kris Kitani](https://www.cs.cmu.edu/~kkitani/), [László Jeni](https://www.laszlojeni.com)  
 Robotics Institute, Carnegie Mellon University
 
 <a name="Abstract"></a>
