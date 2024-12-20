@@ -29,7 +29,7 @@ trainer:
 
 model:
   compile: true
-  pretrain:  "../../checkpoints/vit_mae.pth
+  pretrain:  "../../checkpoints/vit_mae.pth"
   tokenizer_cfg:
     _target_: src.models.tokenizer_utils.TokenizerConfig
     drop_policy: none
