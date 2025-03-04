@@ -104,9 +104,10 @@ class KineticsDataset(Dataset):
         data_list = []
         with open(metadata) as f:
             for line in f:
-                line = line.strip()
+                *splits, label = line.strip().split()
+                path = ' '.join(splits)
                 # Append video_path, label
-                data_list.append(line.split())
+                data_list.append((path, label))
         return data_list
 
 
