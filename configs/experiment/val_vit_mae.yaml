@@ -21,7 +21,7 @@ task_name: "vitb_singlecrop"
 
 trainer:
   precision: 16
-  devices: 6
+  devices: 1
   accelerator: "gpu"
   min_epochs: 10
   max_epochs: 10
@@ -29,7 +29,7 @@ trainer:
 
 model:
   compile: true
-  pretrain:  "../../checkpoints/vit_mae.pth
+  pretrain:  "../../checkpoints/vit_mae.pth"
   tokenizer_cfg:
     _target_: src.models.tokenizer_utils.TokenizerConfig
     drop_policy: none

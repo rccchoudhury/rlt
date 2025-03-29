@@ -3,5 +3,7 @@ _target_: src.data.kinetics_datamodule.KineticsDataModule
 batch_size: 8 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
 num_workers: 8
 pin_memory: True
-train_metadata_path: ${KINETICS_TRAIN_METADATA}
-val_metadata_path: ${KINETICS_VAL_METADATA}
+train_metadata_path: ${oc.env:KINETICS_TRAIN_METADATA}
+val_metadata_path: ${oc.env:KINETICS_VAL_METADATA}
+# We follow existing works and use val dataset for paper results.
+test_metadata_path: ${oc.env:KINETICS_VAL_METADATA}

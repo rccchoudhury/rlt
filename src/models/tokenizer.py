@@ -107,21 +107,13 @@ class Tokenizer(nn.Module):
         if self.pos_embed.device != frames.device:
             self.pos_embed = self.pos_embed.to(frames.device)
             self.length_embed = self.length_embed.to(frames.device)
-        #ipdb.set_trace()
+
         frames = frames.reshape(B, -1, self.num_frames, H, W, C).flatten(0, 1)
         
         assert len(frames.shape) == 5
         # it's batch_size * num_crops.
         B = frames.shape[0]
         frames = frames.permute(0, 1, 4, 2, 3)
-
-        # This runs random augmentation, but applies the same aug to the 
-        # whole batch, which isn't ideal.
-        # if is_training and self.rand_aug_fn is not None:
-        #     ipdb.set_trace()
-        #     frames = frames.flatten(0, 1)
-        #     frames = self.rand_aug_fn(frames)
-        #     frames = frames.reshape(B, -1, *frames.shape[1:])
 
         # Run imagenet normalization + convert to float.
         if self.transform is not None:
@@ -147,7 +139,6 @@ class Tokenizer(nn.Module):
                                                    threshold=self.drop_param, 
                                                    tubelet_size=self.tubelet_size,
                                                    patch_size=self.patch_size[0])
-            #ipdb.set_trace()
             if self.encode_length:
                 token_lengths = batched_get_token_lengths(token_mask, batch_size=B, input_shape=self.desired_shape)
         else:
@@ -161,8 +152,8 @@ class Tokenizer(nn.Module):
             p1=self.patch_size[0],
             p2=self.patch_size[1],
         )
-        #ipdb.set_trace()
-        if self.random_drop:# and is_training:
+
+        if self.random_drop:
             # Droptoken for evaluation baseline.
             token_mask = random_droptoken(split_crops, 
                                           n_tokens=self.total_tokens, 
