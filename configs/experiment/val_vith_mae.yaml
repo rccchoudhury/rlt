@@ -16,12 +16,14 @@ defaults:
 tags: ["kinetics", "vit_mae_val_singlecrop"]
 
 seed: 42
+devices: 4
+batch_size: 32
 
 task_name: "vith_test"
 
 trainer:
   precision: 16
-  devices: 4
+  devices: ${devices}
   accelerator: "gpu"
   min_epochs: 10
   max_epochs: 10
@@ -29,7 +31,7 @@ trainer:
 
 model:
   compile: true
-  pretrain: "../../checkpoints/vith_mae.pth"
+  pretrain: "checkpoints/vith_mae.pth"
   tokenizer_cfg:
     _target_: src.models.tokenizer_utils.TokenizerConfig
     drop_policy: rlt
@@ -43,7 +45,7 @@ model:
 
 
 data:
-  batch_size: 4
+  batch_size: ${batch_size}
 
 # logger: 
 #   wandb:

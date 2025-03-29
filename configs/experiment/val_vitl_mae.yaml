@@ -18,7 +18,7 @@ tags: ["kinetics", "vit_mae_val_singlecrop"]
 seed: 42
 
 task_name: "vitl_test"
-devices: 8
+devices: 4
 batch_size: 32
 
 trainer:
@@ -47,7 +47,6 @@ model:
 data:
   batch_size: ${batch_size}
   
-
 
 # logger: 
 #   wandb:
