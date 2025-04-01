@@ -17,7 +17,9 @@ def main(args):
     # Validate the file.
     num_lines = sum(1 for _ in open(args.output_file, 'r'))
     for line in tqdm(open(args.output_file, 'r'), colour='green', total=num_lines):
-        path, _ = line.strip().split()
+        # in case there's a space in directory name, we should handle that
+        *splits, label = line.strip().split()
+        path = ' '.join(splits)
         assert os.path.exists(path)
     print("Done!")
 
